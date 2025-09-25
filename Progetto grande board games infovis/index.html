@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzazione Dati Board Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="splash-screen">
+        <div class="splash-content">
+            <img src="https://upload.wikimedia.org/wikipedia/it/thumb/c/c8/Logo_Roma_Tre.jpg/640px-Logo_Roma_Tre.jpg" alt="Logo Università Roma Tre">
+            <p><b>Progetto di InfoVis 2024-2025: Boardgames Explorer</b></p>
+            <p>Dipartimento di Ingegneria Informatica<br>Realizzato da Alessio Prete e Riccardo Spano</p>
+			<p class="click-to-start">Clicca per iniziare</p>
+        </div>
+    </div>
+
+    <div class="container">
+		<audio id="background-audio" loop preload="auto">
+        <source src="audio-full.mp3" type="audio/mpeg">
+			Il tuo browser non supporta l'elemento audio.
+		</audio>
+		
+		<audio id="node-audio" preload="auto">
+			<source src="audio-nodes.mp3" type="audio/mpeg">
+			Il tuo browser non supporta l'elemento audio.
+		</audio>
+        <div class="top-section">
+            
+            <div class="controls-wrapper card">
+                <div class="controls">
+                    <h2>Filtri</h2>
+                    <div class="control-group">
+                        <label for="rank-slider">Ranking (Max): <span id="rank-value">100</span></label>
+                        <input type="range" id="rank-slider" min="1" max="100" value="100">
+                    </div>
+                     <div class="control-group">
+                        <label for="rating-slider">Rating (Min): <span id="rating-value">7.7</span></label>
+                        <input type="range" id="rating-slider" min="7.7" max="8.7" value="7.7" step="0.1">
+                    </div>
+                    <div class="control-group">
+                        <label for="reviews-slider">N. Recensioni (Min): <span id="reviews-value">5553</span></label>
+                        <input type="range" id="reviews-slider" min="5000" max="97000" value="5000" step="1000">
+                    </div>
+                    <div class="control-group">
+                        <label for="players-slider">N. Giocatori: <span id="players-value">Qualsiasi</span></label>
+                        <input type="range" id="players-slider" min="0" max="8" value="0">
+                    </div>
+                    <div class="control-group">
+                        <label for="minage-slider">Età Minima: <span id="minage-value">8</span></label>
+                        <input type="range" id="minage-slider" min="8" max="17" value="8">
+                    </div>
+                    <div class="control-group">
+						<label for="playtime-slider">Durata Partita: <span id="playtime-value">0-480</span> min</label>
+						<input type="range" id="playtime-min-slider" min="0" max="480" value="0" step="10">
+						<input type="range" id="playtime-max-slider" min="0" max="480" value="480" step="10">
+					</div>
+                    <div class="control-group">
+						<label for="year-slider">Anno Pubblicazione: <span id="year-value">1876-2021</span></label>
+						<input type="range" id="year-min-slider" min="1876" max="2021" value="1876">
+						<input type="range" id="year-max-slider" min="1876" max="2021" value="2021">
+					</div>
+					<div class="control-group">
+						<label for="category-select">Categoria:</label>
+						<select id="category-select">
+							<option value="all">Tutte le categorie</option>
+						</select>
+					</div>
+					<div class="control-group">
+						<label>Meccaniche (max 3):</label>
+						<div id="mechanics-checkboxes" style="max-height: 120px; overflow-y: auto;">
+						</div>
+					</div>
+                    <button id="reset-filters">Resetta Filtri</button>
+                    </div>
+            </div>
+            
+            <main class="card" id="graph-container">
+                <div id="tooltip" class="tooltip"></div>
+                <div id="tooltip-details" class="tooltip"></div>
+            </main>
+
+            <div class="list-wrapper">
+                <div class="game-list card">
+                    <h2>Lista Giochi</h2>
+                    <input type="text" id="game-search" placeholder="Cerca un gioco...">
+                    <ul id="game-list-ul"></ul>
+                </div>
+                <div class="legend card">
+                    <h2>Legenda Categorie</h2>
+                    <ul id="legend-ul"></ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="stats-wrapper">
+            <div class="chart-wrapper card">
+                <h2>Giochi per Anno</h2>
+                <canvas id="games-by-year-chart"></canvas>
+            </div>
+            <div class="chart-wrapper card" id="category-chart-container">
+                <h2>Top 10 Categorie</h2>
+                <canvas id="top-categories-chart"></canvas>
+            </div>
+            <div class="chart-wrapper card">
+                <h2>Distribuzione Età Minima</h2>
+                <canvas id="minage-chart"></canvas>
+            </div>
+            <div class="chart-wrapper card">
+                <h2>Distribuzione Tempo di Gioco (Min.)</h2>
+                <canvas id="playtime-chart"></canvas>
+            </div>
+            <div class="chart-wrapper card" id="robustness-chart-container">
+                <h2>Robustezza di Raccomandazione (Top 10)</h2>
+                <canvas id="robustness-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
